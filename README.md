@@ -8,3 +8,5 @@ Il y a à disposition :
 - un code python correspondant à l'application d'un GCN à un ensemble de graphes moléculaires ZINC-250K.
 
 Le code a lancé est assez long, il faut exécuter le fichier python main_molecules_graph_regression.py, puis les autres codes (plot_training_curves.py, visualize_molecules.py) pour avoir la data visualisation.
+
+Inspiré de l'article suivant : https://distill.pub/2021/gnn-intro/
