@@ -29,6 +29,6 @@ Sinon, il faut exécuter le fichier python main_molecules_graph_regression.py, p
 
 Les packages suivants sont à installer en amont :
 
-$$ pip install torch dgl numpy matplotlib tensorboardX tensorboard tqdm networkx $$
+$ pip install torch dgl numpy matplotlib tensorboardX tensorboard tqdm networkx $
 
 
