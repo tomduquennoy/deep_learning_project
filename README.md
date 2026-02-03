@@ -31,4 +31,22 @@ Les packages suivants sont à installer en amont :
 
 ` pip install torch dgl numpy matplotlib tensorboardX tensorboard tqdm networkx `
 
+## Fonctionnement du modèle
 
+Le Dataset est ensemble de graphes moléculaires où les noeuds sont des atomes (C, N, O...) encodé par [numéro atomique, charge, aromaticité] ; les arêtes sont des liaisons chimiques (simple, double, triple, aromatique). La cible est une valeur scalaire continue mesurant l’hydrophobie d’une molécule.
+
+La Pipeline se développe en 3 étapes : 
+- Embedding Layer : projection des atomes dans un espace continu
+- GCN (ou GIN) : entre 4 et 8 couches pour ZINC. Chaque atome "apprend" son environnement chimique. Un carbone au sein d'un cycle benzénique doit avoir un embedding différent d'un carbone dans une chaîne linéaire.
+- Readout (Global Pooling) : fusion de tous les embeddings finaux en un seul vecteur représentant la molécule entière.
+
+Enfin on passe ce seul vecteur dans un MLP (Multi-Layer Perceptron) pour avoir une valeur unique.
+
+Les résultats sont les suivants : 
+- Test MAE: 0.4057
+- Train MAE: 0.3026
+- Learning rate final : 1.56e-5
+
+Le modèle permet de prendre en compte une grande complexité de liaisons.
+L’agrégation de voisinage permet au réseau de 'peser' l'importance de chaque type d'atome et de sa position dans la structure pour prédire la solubilité.
+Le GNN parvient à différencier des molécules ayant un nombre d'atomes similaire mais des connectivités différentes (ex: Molécules #252 et #521, toutes deux à 23 atomes).
